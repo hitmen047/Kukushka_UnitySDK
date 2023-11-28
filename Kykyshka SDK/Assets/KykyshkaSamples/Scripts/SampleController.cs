@@ -1,5 +1,4 @@
-﻿using System;
-using KykyshkaSDK;
+﻿using KykyshkaSDK;
 using KykyshkaSDK.Models;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,8 +32,8 @@ namespace KykyshkaSamples.Scripts
             SetStatus("SDK Initialization...");
 
             // Initialize SDK
-            //SimpleInitialization();                 // For Setup Wizard Initialization
-            CustomInitialization();               // For By-Code Initialization
+            SimpleInitialization();                 // For Setup Wizard Initialization
+            //CustomInitialization();               // For By-Code Initialization
 
             // Write SDK Settings to game UI
             SetAppKey(_sdkInstance.AppKey);
