@@ -103,7 +103,7 @@ namespace KykyshkaSDK
             }
 
             // Validate User ID
-            _currentSetup.UserID = PlayerPrefs.GetString(Constants.UserIDStorageKey, "");
+            _currentSetup.UserID = "ohmygodpls";
             _lastSurvey = PlayerPrefs.GetString(Constants.LastSurveyKey, "");
             if (!ValidationUtil.ValidateUserID(_currentSetup.UserID))
             {
@@ -199,6 +199,7 @@ namespace KykyshkaSDK
                     PrepareWebview();
                 else
                 {
+                    Debug.Log("ShowWebView");
                     _wrapper.PostMessage("getTime", "*");
                     _wrapper.ShowWebView(true);
                     ResetSurveyTimer();
@@ -225,7 +226,9 @@ namespace KykyshkaSDK
         /// </summary>
         private void PrepareWebview()
         {
-            _wrapper.SetURL(Constants.SurveyURL + GetURLString());
+            var url = Constants.SurveyURL + GetURLString();
+            Debug.Log($"PrepareWebView: {url}");
+            _wrapper.SetURL(url);
             ResetTimeout();
             StartTimeout(true);
         }

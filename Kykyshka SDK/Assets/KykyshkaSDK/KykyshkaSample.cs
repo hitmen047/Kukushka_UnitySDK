@@ -4,33 +4,48 @@ using UnityEngine;
 
 namespace KykyshkaSDK
 {
-    public class KykyshkaSample : MonoBehaviour
+    public class KukushkaSample : MonoBehaviour
     {
-        private Kykyshka _sdkInstance;
+        private Kykyshka sdkInstance;
 
-        private IEnumerator Start()
+        private void Awake()
         {
-            _sdkInstance = new Kykyshka(new SDKOptions()
+            sdkInstance = new Kykyshka(new SDKOptions
             {
-                DebugMode = true,
-                AppKey = "UnYBlR6tujyxGGpCO1aUTe7nWgmDqMQzRbAlCzsmaUeZOmidIrODLTFsyFanXW6F",
-                UserID = "demouserid",
+                DebugMode = false, // Debug Mode — when active will always display a demo survey regardless of AppKey, UserID, your geo etc. Useful for testing
+                AppKey = "UnYBlR6tujyxGGpCO1aUTe7nWgmDqMQzRbAlCzsmaUeZOmidIrODLTFsyFanXW6F", // Application Key
+                UserID = "demouserid" // User ID
             });
 
-            _sdkInstance.OnSurveyStart = () => Debug.Log("Started");
-            _sdkInstance.OnSuccess = hq => Debug.Log("Success");
-            _sdkInstance.OnFail = data => Debug.Log("Failed");
-            _sdkInstance.OnLoadFail = () => Debug.Log("Load fail");
+            // Add Survey Callbacks
+            sdkInstance.OnSurveyStart = () => { Debug.Log("Started"); };
+            sdkInstance.OnSuccess = hq => { Debug.Log("Success"); };
+            sdkInstance.OnFail = data => { Debug.Log("Failed"); };
+            sdkInstance.OnLoadFail = () => { Debug.Log("On Load Fail"); };
 
-            _sdkInstance.OnSurveyAvailable = () => Debug.Log("Available");
-            _sdkInstance.OnSurveyUnavailable = () => Debug.Log("Unavailable");
+            // Add Preloading Callbacks
+            sdkInstance.OnSurveyAvailable = () => { Debug.Log("Available"); };
+            sdkInstance.OnSurveyUnavailable = () => { Debug.Log("Unavailable"); };
 
-            _sdkInstance.OnError = message => Debug.Log($"Error: {message}");
+            // Error
+            sdkInstance.OnError = message => { Debug.Log($"Error: {message}"); };
+        }
 
-            yield return null;
-            
-            _sdkInstance.HasSurvey();
-            _sdkInstance.ShowSurvey();
+        private void Start()
+        {
+            StartCoroutine(StartSurvey());
+        }
+
+        private IEnumerator StartSurvey()
+        {
+            yield return new WaitForSeconds(1);
+            Debug.Log("HasSurvey");
+            sdkInstance.HasSurvey();
+            yield return new WaitForSeconds(1);
+            Debug.Log("ShowSurvey");
+            sdkInstance.ShowSurvey();
         }
     }
 }
+
+// UnYBlR6tujyxGGpCO1aUTe7nWgmDqMQzRbAlCzsmaUeZOmidIrODLTFsyFanXW6F
