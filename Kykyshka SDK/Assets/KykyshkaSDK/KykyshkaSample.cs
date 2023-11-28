@@ -1,3 +1,4 @@
+using System.Collections;
 using KykyshkaSDK.Models;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace KykyshkaSDK
     {
         private Kykyshka _sdkInstance;
 
-        private void Start()
+        private IEnumerator Start()
         {
             _sdkInstance = new Kykyshka(new SDKOptions()
             {
@@ -25,6 +26,8 @@ namespace KykyshkaSDK
             _sdkInstance.OnSurveyUnavailable = () => Debug.Log("Unavailable");
 
             _sdkInstance.OnError = message => Debug.Log($"Error: {message}");
+
+            yield return null;
             
             _sdkInstance.HasSurvey();
             _sdkInstance.ShowSurvey();

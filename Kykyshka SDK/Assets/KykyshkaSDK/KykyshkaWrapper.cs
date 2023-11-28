@@ -30,7 +30,7 @@ namespace KykyshkaSDK
         /// <summary>
         /// On Wrapper Started
         /// </summary>
-        private void Awake()
+        private IEnumerator Start()
         {
             // Create WebView
             webViewObject = (new GameObject("_KYKYSHKA_WEBVIEW_")).AddComponent<WebViewObject>();
@@ -94,6 +94,8 @@ namespace KykyshkaSDK
             // Do not Destroy this wrapper
             DontDestroyOnLoad(this.gameObject);
             DontDestroyOnLoad(webViewObject.gameObject);
+
+            yield return null;
         }
 
         /// <summary>
